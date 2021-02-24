@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Contacts</string>
+
+    <string-array name="contact_names">
+        <item>Iron Man</item>
+        <item>Captain America</item>
+        <item>Hulk</item>
+        <item>Thor</item>
+        <item>Black Widow</item>
+        <item>Hawkaye</item>
+        <item>Doctor Strange</item>
+        <item>Scarlett Witch</item>
+        <item>Quicksilver</item>
+        <item>Ant Man</item>
+    </string-array>
+
+    <string-array name="contact_numbers">
+        <item>9644695542</item>
+        <item>8770228069</item>
+        <item>9644695542</item>
+        <item>8770228069</item>
+        <item>9644695542</item>
+        <item>8770228069</item>
+        <item>9644695542</item>
+        <item>8770228069</item>
+        <item>9644695542</item>
+        <item>8770228069</item>
+    </string-array>
+    <string name="dummy_contact">Name</string>
+    <string name="dummy_number">Number</string>
+</resources>
