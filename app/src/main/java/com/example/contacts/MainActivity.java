@@ -3,6 +3,7 @@ package com.example.contacts;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -10,7 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bluelinelabs.conductor.Conductor;
+import com.bluelinelabs.conductor.Router;
+import com.bluelinelabs.conductor.RouterTransaction;
 import com.example.contacts.adpaters.ContactsAdapter;
+import com.example.contacts.controller.ContactListController;
 import com.example.contacts.database.AppDatabase;
 import com.example.contacts.entities.Contact;
 
@@ -35,20 +40,13 @@ public class MainActivity extends AppCompatActivity implements SaveDialog.Dialog
         database = AppDatabase.getDatabase(getApplicationContext());
         contacts = new ArrayList<>();
 
-        ImageButton addContacts = findViewById(R.id.add_contact);
+        findViewById(R.id.add_contact).setOnClickListener(v -> openDialog());
 
         database.contactDao().getAllContacts()
                 .flatMap(Flowable::fromIterable)
                 .subscribe(contact -> contacts.add(contact));
 
         RecyclerView recyclerView = findViewById(R.id.recycle_view);
-
-        addContacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDialog();
-            }
-        });
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -66,7 +64,8 @@ public class MainActivity extends AppCompatActivity implements SaveDialog.Dialog
 
     private void deleteContact(final int pos) {
         Contact contact = getById(pos);
-        if (contact != null) contacts.remove(contact);
+        database.contactDao().deleteUser(contact);
+        if (contacts != null) contacts.remove(contact);
     }
 
     private Contact getById(final int id) {
@@ -79,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements SaveDialog.Dialog
     @Override
     public void saveContact(Contact contact) {
         database.contactDao().addContact(contact);
-        contacts.add(contact);
         contactsAdapter.notifyDataSetChanged();
     }
 }

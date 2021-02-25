@@ -18,7 +18,7 @@ import io.reactivex.Single;
 @Dao
 public interface ContactDao {
     @Insert
-    Completable addContact(Contact contact);
+    void addContact(Contact contact);
 
     @Query("select * from contact")
     Flowable<List<Contact>> getAllContacts();
@@ -27,5 +27,5 @@ public interface ContactDao {
     Maybe<Contact> getContact(int id);
 
     @Delete
-    Single<Integer> deleteUser(Contact contact);
+    void deleteUser(Contact contact);
 }
